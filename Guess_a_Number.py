@@ -6,14 +6,15 @@ import Guess        #Used to import module 'Guess'
 
 #Screen for selecting any option
 def screen():
+    welcome = " Welcome to the GAME "
+    print(f"\n\t{welcome.center(50, '#')}")
     print("\n\t1: Play Guessing")
     print("\t2: Highest Score")
     print("\t3: Current Score")
-    #print("\t4: Difficulty Level")
-    print("\t5: Need Help...?")
-    print("\t6: About Game")
-    print("\t7: Exit")
-    choice=int(input("\n\tEnter Choice : "))
+    print("\t4: Need Help...?")
+    print("\t5: About Game")
+    print("\t6: Exit")
+    choice=input("\n\tEnter Choice : ")
     return choice
 
 def level():
@@ -28,7 +29,7 @@ def helpme():
     print("\t3 : What about Difficulty Level ?")
     print("\t4 : Ask a question")
     print("\t5 : Go Back")
-    ch = int(input("\n\tPlease select any option : "))
+    ch = input("\n\tPlease select any option : ")
     return ch
 
 def about():
@@ -107,25 +108,30 @@ def diff_level():
     print("\n\t1: Easy")
     print("\t2: Medium")
     print("\t3: Hard")
-    diff = int(input("\tPlease select any one : "))
-    if diff>=1 and diff<=3:
-        return diff
-    else:
+    diff = input("\tPlease select any one : ")
+    try:
+        if int(diff)>=1 and int(diff)<=3:
+            return diff
+        else:
+            print("\tPlease enter 1, 2, or 3")
+            diff_level()
+    except:
         print("\tPlease enter 1, 2, or 3")
         input()
         diff_level()
         
 def play():
     diff = diff_level()
-    if diff==1:
+    lower, upper, multi = 0, 0, 0
+    if diff=="1":
         lower = 1
         upper = 10
         multi = 60
-    elif diff==2:
+    elif diff=="2":
         lower = 1
         upper = 100
         multi = 45
-    elif diff==3:
+    elif diff=="3":
         lower = 1
         upper = 400
         multi = 30
@@ -138,7 +144,12 @@ def play():
         count += 1
         score=1000 - (count-1)*multi
         print("\tGuess a number between {} and {} :- ".format(lower,upper),end='')
-        guess = int(input("\t"))
+        try:
+            guess = int(input("\t"))
+        except:
+            print("\n\tPlease Enter Numeric values only.")
+            input()
+            continue
         if x == guess:
             if count==1:
                 print("\n\tCongratulations you did it in {}st try.".format(count))
@@ -195,37 +206,37 @@ def main():
     while True:
         os.system("cls")       #It clears the screen.
         m = screen()
-        if m==1:
+        if m=="1":
             play()
-        elif m==2:
+        elif m=="2":
             h=high()
             print("\tHigh Score is :",h)
             input()
-        elif m==3:
+        elif m=="3":
             current()
-        elif m==4:
-            level()
-        elif m==5:
+        # elif m=="4":
+        #     level()
+        elif m=="4":
             while True:
                 os.system("cls")
                 ans = helpme()
-                if ans==1:
+                if ans=="1":
                     faq1()
                     #input()
-                elif ans==2:
+                elif ans=="2":
                     faq2()
-                elif ans==3:
+                elif ans=="3":
                     faq3()
-                elif ans == 4:
+                elif ans == "4":
                     ask_ques()
-                elif ans==5:
+                elif ans=="5":
                     main()
                 else:
                     print('\tInvalid Choice...! Please Enter Valid Choice.')
                     input()
-        elif m==6:
+        elif m=="5":
             about()
-        elif m==7:
+        elif m=="6":
             sys.exit()
         else:
             print('\tInvalid Choice...! Please Enter Valid Choice.')
